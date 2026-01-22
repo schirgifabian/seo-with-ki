@@ -119,4 +119,6 @@ def main_page():
         # Ergebnis Bereich
         result_area = ui.column().classes('w-full')
 
-ui.run(host='0.0.0.0', port=9999, title='SEO Tool', favicon='🚀')
+# NEUE Zeile (kopiere diese):
+ui.run(host='0.0.0.0', port=8080, title='SEO Tool', storage_secret='ywbqPFsntm_*x+=jY#wauK')
+
