@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  seo-tool:
+    image: seo-tool:latest
+    build: .  # Das sagt Portainer: "Bau das Dockerfile aus dem Repo"
+    container_name: mistral-seo-dashboard
+    restart: unless-stopped
+    ports:
+      - "9999:9999"
+    environment:
+      # Hier deinen Mistral API Key einfügen!
+      - MISTRAL_API_KEY=Jp8HuDzUH4H48T8hQilL7bgdtfWugec9
+      - PYTHONUNBUFFERED=1
