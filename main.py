@@ -120,5 +120,5 @@ def main_page():
         result_area = ui.column().classes('w-full')
 
 # NEUE Zeile (kopiere diese):
-ui.run(host='0.0.0.0', port=8080, title='SEO Tool', storage_secret='ywbqPFsntm_*x+=jY#wauK')
+ui.run(host='0.0.0.0', port=9999, title='SEO Tool', storage_secret='ywbqPFsntm_*x+=jY#wauK')
 
