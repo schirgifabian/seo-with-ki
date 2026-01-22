@@ -17,9 +17,8 @@ BTN_ICON_STYLE = 'text-slate-400 hover:text-blue-600 cursor-pointer'
 
 # --- LOGIK ---
 def extract_json_from_text(text: str):
-    """Versucht, JSON aus der KI-Antwort zu extrahieren, auch wenn Text drumherum steht."""
+    """Versucht, JSON aus der KI-Antwort zu extrahieren."""
     try:
-        # Suche nach dem ersten { und dem letzten }
         start = text.find('{')
         end = text.rfind('}') + 1
         if start != -1 and end != -1:
@@ -45,11 +44,11 @@ def blocking_analysis(url: str, business_context: str):
     except Exception as e:
         return {"error": f"Scraping Fehler: {str(e)}"}
 
-    # 2. KI Prompt (Striktes JSON Format)
+    # 2. KI Prompt
     prompt = f"""
     Du bist ein SEO-Experte für Rank Math.
     
-    KONTEXT ZUM UNTERNEHMEN (Beachte dies für Local SEO!):
+    KONTEXT ZUM UNTERNEHMEN:
     "{business_context}"
     
     WEBSEITEN TEXT:
@@ -77,7 +76,7 @@ def blocking_analysis(url: str, business_context: str):
         chat_response = client.chat.complete(
             model="mistral-large-latest",
             messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"} # Erzwingt JSON Mode bei Mistral
+            response_format={"type": "json_object"}
         )
         content = chat_response.choices[0].message.content
         data = extract_json_from_text(content)
@@ -92,14 +91,6 @@ def blocking_analysis(url: str, business_context: str):
 def main_page():
     ui.colors(primary='#3B82F6', secondary='#64748B', positive='#22C55E')
     ui.query('body').classes('bg-slate-50 font-sans')
-
-    # State Container für Ergebnisse
-    results = {
-        'keyword': ui.item_value(''), 
-        'title': ui.item_value(''),
-        'desc': ui.item_value(''),
-        'suggestions': []
-    }
 
     # Helper: Kopier-Funktion
     def copy_to_clipboard(text):
